@@ -1,0 +1,16 @@
+idCliente:1111
+FechaRecepcion:13
+HoraRecepcion:11
+NivelImportancia:premium
+Descripcion:Salchipapa
+idCliente:12232
+FechaRecepcion:11
+HoraRecepcion:14
+NivelImportancia:normal
+Descripcion:Hamburguesas
+idCliente:12232
+FechaRecepcion:11
+HoraRecepcion:14
+NivelImportancia:promo
+Descripcion:Hamburguesas
+

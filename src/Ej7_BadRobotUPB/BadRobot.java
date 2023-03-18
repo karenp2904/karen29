@@ -7,29 +7,30 @@ import java.util.List;
 import java.util.Map;
 
 import ListasEnlaceDoble.LinkedList;
+import QueueArray.QueueArray;
 
 public class BadRobot {
 	private static final int obstaculo=1;
 	private static final int espacioLibre=0;
 	private static final int lugarVisitado=2;
 	
-	private int[][] mapa;
-	private int[] inicio;
-	private int[] fin;
-	
-	public BadRobot(int[][] mapa, int[] inicio, int[] fin) {
+	private QueueArray[][] mapa;
+	private QueueArray[] inicio;
+	private QueueArray[] fin;
+	/*
+	public BadRobot(int[][] mapa, QueueArray[] inicio, QueueArray[] fin) {
 		super();
 		this.mapa = mapa;
 		this.inicio = inicio;
 		this.fin = fin;
 	}
 	
-	public LinkedList<int[]> calcularLaRuta(){
-		LinkedList<int[]> rutaCreada=new LinkedList<>();
-		int[] espacioActual=inicio;
+	public LinkedList<QueueArray[]> calcularLaRuta(){
+		LinkedList<QueueArray[]> rutaCreada=new LinkedList<>();
+		QueueArray[] espacioActual=inicio;
 		while(!Arrays.equals(espacioActual, fin)){
 			rutaCreada.add(espacioActual);
-			int[] siguiente=siguientePosicion(espacioActual);
+			QueueArray[] siguiente=siguientePosicion(espacioActual);
 			if(siguiente==null) {
 				return null;
 			}
@@ -38,17 +39,17 @@ public class BadRobot {
 		rutaCreada.add(fin);
 		return rutaCreada;
 	}
-	public int[] siguientePosicion(int[] posicionActual) {
-		LinkedList<int[]> listaCola= new LinkedList<>();
-		Map<int[], int[]> mapPadres=new HashMap<>();
+	public QueueArray[] siguientePosicion(QueueArray[] posicionActual) {
+		LinkedList<QueueArray[]> listaCola= new LinkedList<>();
+		Map<QueueArray[], QueueArray[]> mapPadres=new HashMap<>();
 		listaCola.add(posicionActual);
 		mapPadres.put(posicionActual, null);
 		while(!listaCola.isEmpty()) {
-			int[] nodoTemp=listaCola.pop();
+			QueueArray[] nodoTemp=listaCola.pop();
 			if(Arrays.equals(nodoTemp, fin)) {
 				return actualizarRuta(mapPadres,nodoTemp);
 			}
-			for (int[] espacioCercano : espaciosCercanos(nodoTemp).toArray()) {
+			for (QueueArray[] espacioCercano : espaciosCercanos(nodoTemp).toArray()) {
 				if(mapa[espacioCercano[0]][espacioCercano[1]]==espacioLibre) {
 					listaCola.add(espacioCercano);
 					mapa[espacioCercano[0]][espacioCercano[1]]=lugarVisitado;
@@ -62,10 +63,10 @@ public class BadRobot {
 	
 	}
 	
-	public LinkedList<int[]> espaciosCercanos(int[] nodo){
+	public LinkedList<QueueArray[]> espaciosCercanos(QueueArray[] nodo){
 		LinkedList<int[]> espaciosCercanos=new LinkedList<>();
-		int k=nodo[0];
-		int l=nodo[1];
+		QueueArray k=nodo[0];
+		QueueArray l=nodo[1];
 		if(k>0) {
 			espaciosCercanos.add(new int[] {
 					k--,l
@@ -100,5 +101,5 @@ public class BadRobot {
 		return nodo;
 	}
 	
-	
+	*/
 }

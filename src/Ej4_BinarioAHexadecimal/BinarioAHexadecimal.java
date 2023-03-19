@@ -43,7 +43,7 @@ public class BinarioAHexadecimal {
 					//Long numeroH;
 					System.out.println("Ingrese el numero hexadecimal: ");
 					listaEntrada.addFirst(sc.next());
-					}while(validarNumeroHexadecimal(listaEntrada.getFirst().toString()));
+					}while(validarNumeroHexadecimal(listaEntrada.getFirst().toString())==false);
 				
 				listaBinario.addFirst(convertirHexadecimalABinario(listaEntrada.getFirst().toString()));
 				
@@ -78,15 +78,15 @@ public class BinarioAHexadecimal {
 	    // Se declara una matriz para almacenar los valores hexadecimales
 	    char[] numeroHexadecimales = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 	    
-	    // Creamos una cadena para almacenar el resultado de la conversión
+	    // Crea una cadena para almacenar el resultado de la conversión
 	    String hexadecimal = "";
 	    
-	    // Añadimos ceros a la izquierda para que la cadena de binario tenga una longitud múltiplo de 4
+	    // Añadi ceros a la izquierda para que la cadena de binario tenga una longitud múltiplo de 4
 	    while (binario.length() % 4 != 0) {
 	        binario = "0" + binario;
 	    }
 	    
-	    // Recorremos la cadena de binario en grupos de 4 bits
+	    // Recorrer la cadena de binario en grupos de 4 bits
 	    for (int i = 0; i < binario.length(); i += 4) {
 	        // Extraemos los cuatro bits de cada grupo
 	        String seccionesDeBinario = binario.substring(i, i + 4);
@@ -141,8 +141,8 @@ public class BinarioAHexadecimal {
 	}
 	public static boolean validarNumeroHexadecimal(String numeroHexadecimal) {
 		// Expresión regular que comprueba si la cadena contiene únicamente dígitos hexadecimales
-	    String patron = "[0-9A-Fa-f]+";
-	    
+	    String patron = "[0123456789AaBbCcdDeEFf]+";
+
 	    // Comprobamos si la cadena de entrada coincide con el patrón
 	    return numeroHexadecimal.matches(patron);
 	}
@@ -158,10 +158,7 @@ public class BinarioAHexadecimal {
 	
 	
 	//Metodos cuando hacia conversion Binario-Decimal-Hexadecimal y viceversa
-	
-	
-	
-	
+
 	public static int conventirHexaADecimal(String numeroHexadecimal){
 		final String digitosValidos="0123456789ABCDEF";// caracteres permitidos en sistema numerico hexadecimal
 		numeroHexadecimal=numeroHexadecimal.toUpperCase();

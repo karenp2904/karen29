@@ -51,7 +51,8 @@ public class RestaYModulo {
 					lista2.addLast(sc.nextInt());
 				}
 				LinkedList listaModulo=new LinkedList<>();
-				System.out.println("El resultado es: ");
+				listaModulo.addLast(obtenerModulo(lista1,lista2));
+				System.out.println("El resultado es: " + listaModulo.getLast());
 
 
 				break;
@@ -92,10 +93,9 @@ public class RestaYModulo {
 
 
 	
-	public static String obtenerModulo(LinkedList lista1, LinkedList lista2) {
+	public static QueueArray[] obtenerModulo(LinkedList lista1, LinkedList lista2) {
 
-		LinkedList resultado = new LinkedList();
-
+		QueueArray[] resultados= new QueueArray[lista1.size()+ lista2.size()];//tamaño extensoooo
 		//Aqui se itera en la primera lista y un contador ira aumentando
 		Iterator iterator1 = lista1.iterator();
 		LinkedListNode nodo1 = (LinkedListNode) iterator1.next();
@@ -114,23 +114,30 @@ public class RestaYModulo {
 			tamañoLista1++;
 		}
 
+		//se trabajaran con arrays de colas- se convierte la lista en un array
+		QueueArray arrayLista1[] = new QueueArray[lista1.size()];
+		for (int i = 0; i <lista1.size() ; i++) {
+			arrayLista1[i].insert(lista1.popHead());
+		}
+		//se trabajaran con arrays de colas- se convierte la lista en un array
+		QueueArray arrayLista2[] = new QueueArray[lista2.size()];
+		for (int i = 0; i <lista2.size() ; i++) {
+			arrayLista2[i].insert(lista2.popHead());
+		}
 		LinkedListNode temporal;
-		if (tamañoLista1 > tamañoLista2) {// si la lista 1 es mayor a la lista 2 entonces la lista dos divirá a la lista 1
-
-			for (Integer i = 1; i < tamañoLista1; i++) {
-				//temporal=i*lista2.getFirst();
-			}
+		if (tamañoLista1 > tamañoLista2) {// si la lista 1 es mayor a la lista 2 entonces la lista dos divirá a la lista
+			resultados=dividirListas(arrayLista1,arrayLista2);//la lista  1 sera el dividendo y la lista 2 el divisor
 
 		} else {// caso donde la lista 1 divide a la lista 2
-
+			resultados=dividirListas(arrayLista2,arrayLista1); // la lista 2 sera el dividendo y la lista 1 el divisor
 		}
 
 
-		return null;
+		return resultados;
 
 	}
 	//probar
-	public static QueueArray[] divideLongNumbers(QueueArray[] dividendArray, QueueArray[] divisorArray) {
+	public static QueueArray[] dividirListas(QueueArray[] dividendArray, QueueArray[] divisorArray) {
 
 
 		// Verificar si el divisor es cero
@@ -139,20 +146,24 @@ public class RestaYModulo {
 		}
 
 		// Inicializar el cociente y el residuo
-		int[] quotient = new int[dividendArray.length];
-		QueueArray[] remainder = dividendArray;
+		QueueArray[] cociente = new QueueArray[dividendArray.length];
+		QueueArray[] residuo = dividendArray;
 
 		// Realizar la división
-		for (int i = 0; i < quotient.length; i++) {
-			int divisorDigit = (int) divisorArray[0].extract();
-			int dividendDigit = (int) remainder[i].extract();
-			quotient[i] = dividendDigit / divisorDigit;
-			remainder[i].insert(dividendDigit%divisorDigit);
-			if (i < quotient.length - 1) {
-				//remainder[i + 1]=(remainder[i+1] + remainder[i]* 10);
+		for (int i = 0; i < cociente.length; i++) {
+			int divisorDigito = (int) divisorArray[0].extract();
+			int dividendDigito = (int) residuo[i].extract();
+			cociente[i].insert(dividendDigito / divisorDigito);
+			residuo[i].insert(dividendDigito%divisorDigito);
+			/*
+			if (i < cociente.length - 1) {
+				residuo[i+1].insert(residuo[i + 1] + (residuo[i].extract() * 10));
+				//residuo[i + 1]=(residuo[i+1] + residuo[i]* 10);
 			}
+			*/
+
 		}
-		return remainder;
+		return residuo;
 
 	}
 

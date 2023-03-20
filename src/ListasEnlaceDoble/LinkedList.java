@@ -487,17 +487,19 @@ public class LinkedList<T> implements List<T> {
     //25. Retorna el objeto al final de esta lista y lo elimina. 
 	@Override
     public T pop() {
+		Object temporalObjeto = null;
 		try {
-			
-			Object temporalObjeto=tail.getObject();
-			tail=tail.prev;// la nueva cola sera la cola previa
-			
-			//tail.next=null;//el objeto siguiente a la cola es null
-			return (T) temporalObjeto;
+			if(!isEmpty()){
+				temporalObjeto=tail.getObject();
+				tail=tail.prev;// la nueva cola sera la cola previa
+
+				//tail.next=null;//el objeto siguiente a la cola es null
+				return (T) temporalObjeto;
+			}
 		}catch (Exception e) {
     		e.printStackTrace();
-    		 return null;
-        }	
+        }
+		return (T) temporalObjeto;
     }
 	
 	public T popHead() {

@@ -1,11 +1,14 @@
 package Ej1_Polinomios;
 
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import DinamicQueue.Queue;
 import ListasEnlaceDoble.LinkedList;
 import QueueArray.QueueArray;
 
@@ -21,55 +24,121 @@ funciones con la capacidad para gestionar la cantidad de datos. Entre ellas, res
 derivar un polinomio y evaluar un polinomio en un intervalo x = (a, b]. la salida debería ser un
 archivo de resultados result.txt. 
 	 */
-	 public static void main(String[] args) {
+	 public static void main(String[] args) throws IOException {
          Scanner sc = new Scanner(System.in);
 
-         System.out.println("Ingrese el primer polinomio separando los coeficientes por coma: ");
-         String[] input1 = sc.nextLine().split(",");
-         QueueArray[] polinomio1 = new QueueArray[input1.length];
-         for (int i = 1; i <input1.length ; i++) {
-             String coef = null;
-             polinomio1[i].insert( Integer.parseInt(coef.trim()));
+         InputStreamReader streamReader = new InputStreamReader(System.in);
+         BufferedReader bufferedReader = new BufferedReader(streamReader);
+
+         int agregar;
+
+         System.out.println("Polinomio 1\n");
+         QueueArray polinomio1=new QueueArray(10000);
+         do {
+             System.out.println("Ingrese indice del polinomio: ");
+             int numero = Integer.valueOf(bufferedReader.readLine());
+
+             polinomio1.insert(numero);
+
+             System.out.println("si desea agregar mas numeros al polinomio presione 1: ");
+             agregar = Integer.parseInt(bufferedReader.readLine());
+
+         } while (agregar == 1);
+
+         System.out.println("Polinomio 2\n");
+
+         QueueArray polinomio2=new QueueArray(100000);
+         do {
+             System.out.println("Ingrese indice del polinomio: ");
+             int numero = Integer.valueOf(bufferedReader.readLine());
+
+             polinomio2.insert(numero);
+
+             System.out.println("si desea agregar mas numeros al polinomio presione 1: ");
+             agregar = Integer.parseInt(bufferedReader.readLine());
+
+         } while (agregar == 1);
+
+
+         /*
+         do {
+             System.out.println("Ingrese indice del polinomio: ");
+             int numero = Integer.valueOf(bufferedReader.readLine());
+
+             polinomio1.insert(numero);
+
+             System.out.println("si desea agregar mas numeros al polinomio presione 1: ");
+             agregar = Integer.parseInt(bufferedReader.readLine());
+         } while (agregar == 1);
+
+         System.out.println("Polinomio 2\n");
+         Queue polinomio2 = new Queue();
+         do {
+             System.out.println("Ingrese indice del polinomio: ");
+             int numero = Integer.valueOf(bufferedReader.readLine());
+
+             polinomio2.insert(numero);
+
+             System.out.println("si desea agregar mas numeros al polinomio presione 1: ");
+             agregar = Integer.parseInt(bufferedReader.readLine());
+         } while (agregar == 1);
+
+          */
+/*
+         QueueArray[] polinimio2Array=new QueueArray[polinomio2.size()];int i=0;
+         while (!polinomio2.isEmpty()) {
+             Integer elemento = (Integer) polinomio2.extract();
+             if (elemento!=null){
+                 polinimio2Array[i].insert(elemento);
+                 i++;
+             }
+
+         }
+         QueueArray[] polinimio1Array=new QueueArray[polinomio1.size()];int k=0;
+         while (!polinomio1.isEmpty()) {
+             Integer elemento = (Integer) polinomio1.extract();
+             if (elemento!=null){
+                 polinimio1Array[k].insert(elemento);
+                 k++;
+             }
          }
 
-         System.out.println("Ingrese el segundo polinomio separando los coeficientes por coma: ");
-         String[] input2 = sc.nextLine().split(",");
-         QueueArray[] polinomio2 = new QueueArray[input2.length];
-         for (int i = 1; i <input2.length ; i++) {
-             String coef = null;
-             polinomio2[i].insert( Integer.parseInt(coef.trim()));
-         }
+ */
 
          System.out.println("Ingrese la operación a realizar:" +
-                 "1. Evaluar." +
-                 "2. Derivar." +
-                 "3. Restar. ");
+                 "\n1. Evaluar." +
+                 "\n2. Derivar." +
+                 "\n3. Restar. ");
          int operacion = Integer.parseInt(sc.nextLine().trim());
 
-         sc.close();
+
 
          switch (operacion) {
+
              case 1:
-                 LinkedList a= new LinkedList<>();
-                 LinkedList b= new LinkedList<>();
+                 Scanner scanner=new Scanner(System.in);
+                 LinkedList a= new LinkedList<>(0);
+                 LinkedList b= new LinkedList<>(0);
                  System.out.println("Ingrese el valor de a: ");
-                 a.add(sc.nextInt());
+                 String valorA = scanner.next();
+                 a.add(valorA);
                  System.out.println("Ingrese el valor de b: ");
-                 b.add(sc.nextInt());
+                 String valorB =scanner.next();
+                 b.add(valorB);
                  //sc.nextLine();
-                 LinkedList result1 = evaluarPolinomio(polinomio1, a,b);
-                 LinkedList result2 = evaluarPolinomio(polinomio2, a,b);
-                 System.out.println("El resultado de evaluar el primer polinomio es: " + result1);
-                 System.out.println("El resultado de evaluar el segundo polinomio es: " + result2);
+                 Object result1 = evaluarPolinomio(polinomio1, a,b);
+                 Object result2 = evaluarPolinomio(polinomio2, a,b);
+                 System.out.println("El resultado de evaluar el primer polinomio es: " + result1.toString());
+                 System.out.println("El resultado de evaluar el segundo polinomio es: " + result2.toString());
                  break;
              case 2:
-                 QueueArray[] resultado1 = derivarPolinomio(polinomio1);
-                 QueueArray[] resultado2 = derivarPolinomio(polinomio2);
+                 QueueArray resultado1 = derivarPolinomio(polinomio1);
+                 QueueArray resultado2 = derivarPolinomio(polinomio2);
                  System.out.println("El resultado de derivar el primer polinomio es: " + resultado1);
                  System.out.println("El resultado de derivar el segundo polinomio es: " + resultado2);
                  break;
              case 3:
-                 QueueArray[] resultadoSuma = restarPolinomio(polinomio1, polinomio2);
+                 QueueArray resultadoSuma = restarPolinomio(polinomio1, polinomio2);
                  System.out.println("El resultado de restar los polinomios es: " + resultadoSuma);
                  break;
              default:
@@ -78,21 +147,25 @@ archivo de resultados result.txt.
      }
 
 
-    public static QueueArray[] restarPolinomio(QueueArray[] polinomio1, QueueArray[] polinomio2) {
-        int tamaño1 = polinomio1.length;
-        int tamaño2 = polinomio2.length;
+    public static QueueArray restarPolinomio(QueueArray polinomio1, QueueArray polinomio2) {
+        int tamaño1 = polinomio1.size();
+        int tamaño2 = polinomio2.size();
         int n = Math.max(tamaño1, tamaño2);
-        QueueArray[] resultado = new QueueArray[n];
+        QueueArray resultado = new QueueArray(n);
         for (int i = 0; i < n; i++) {
-            Object coef1 = (i < tamaño1) ? polinomio1[i] : 0;
-            Object coef2 = (i < tamaño2) ? polinomio2[i] : 0;
-            Integer coeficiente1=Integer.parseInt((String) coef1);
-            Integer coeficiente2=Integer.parseInt((String) coef2);
-            resultado[i].insert(coeficiente1 - coeficiente2);
+            Object coef1 = (i < tamaño1) ? polinomio1.extract() : 0;
+            Object coef2 = (i < tamaño2) ? polinomio2.extract() : 0;
+            Integer coeficiente1=Integer.parseInt(String.valueOf(coef1));
+            Integer coeficiente2=Integer.parseInt(String.valueOf(coef2));
+            resultado.insert(coeficiente1 - coeficiente2);
         }
         try {
-            FileWriter writer = new FileWriter("result.txt");
-            writer.write(Arrays.toString(resultado));
+            FileWriter writer = new FileWriter("src/Ej1_Polinomios/ResultadoRestar.txt");
+            String guardar="";
+            while (resultado.size()==0){
+                guardar+=resultado.extract();
+            }
+            writer.write(guardar);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,18 +173,18 @@ archivo de resultados result.txt.
         return resultado;
     }
 
-    public static QueueArray[] derivarPolinomio(QueueArray[] polinomio) {
-        int n = polinomio.length;
-        QueueArray[] resultado = new QueueArray[n - 1];
+    public static QueueArray derivarPolinomio(QueueArray polinomio) {
+        int n = polinomio.size();
+        QueueArray resultado = new QueueArray(n-1);
         for (int i = 0; i < n - 1; i++) {
-            Integer valor= (Integer) polinomio[i].extract();
-            resultado[i].insert(valor * (n - i - 1));
+            Integer valor= (Integer) polinomio.extract();
+            resultado.insert(valor * (n - i - 1));
         }
         try {
-            FileWriter writer = new FileWriter("/src/Ej1_Polinomios/ResultadoDerivada.txt");
+            FileWriter writer = new FileWriter("src/Ej1_Polinomios/ResultadoDerivada.txt");
             String derivada="";
-            for (int i = 0; i <resultado.length ; i++) {
-                derivada+=resultado[i].extract();
+            for (int i = 0; i <resultado.size() ; i++) {
+                derivada+=resultado.extract();
             }
             writer.write((derivada));
             writer.close();
@@ -121,28 +194,32 @@ archivo de resultados result.txt.
         return resultado;
     }
 
-    public static LinkedList<Integer> evaluarPolinomio(QueueArray[] polinomio, LinkedList<Integer> a, LinkedList<Integer> b) {
-        int n = polinomio.length;
-        double suma = 0; Integer valorDeB = null;Integer valorDeA = null;
+    public static String evaluarPolinomio(QueueArray polinomio, LinkedList<Integer> a, LinkedList<Integer> b) {
+        int n = polinomio.size();
+        double suma = 0;  String evaluar = "";
+        Integer valorDeB = null;
+        Integer valorDeA = null;
+        valorDeA = Integer.parseInt(String.valueOf(a.getLast()));
+        valorDeB = Integer.parseInt(String.valueOf(b.getLast()));
+
         for (int i = 0; i < n; i++) {
-            Integer valorActual= (Integer) polinomio[i].extract();
-            valorDeA=a.getLast();
-            valorDeB=a.getLast();
+            Integer valorActual = (Integer) polinomio.extract();
             suma += valorActual * ((Math.pow(valorDeB, n - i)) - (Math.pow(valorDeA, n - i)));
         }
-        LinkedList<Integer> resultado= new LinkedList<>();
-        resultado.addLast((int) (suma/ (n * (valorDeB - valorDeA))));
+        LinkedList<Integer> resultado = new LinkedList<>();
+        resultado.addFirst((int) (suma / (n * (valorDeB - valorDeA))));
         try {
-            FileWriter writer = new FileWriter("Resultado.txt");
-            String evaluar="";
-            while (resultado.size()!=0){
-                evaluar+=resultado.pop();
+            FileWriter writer = new FileWriter("src/Ej1_Polinomios/ResultadoEvaluar.txt");
+
+            while (resultado.size() != 0) {
+                evaluar += resultado.popHead();
+
             }
             writer.write(evaluar);
             writer.close();
-            return resultado;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return evaluar;
     }
 }

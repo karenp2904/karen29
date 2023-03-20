@@ -149,7 +149,7 @@ public class QueueArray implements QueueInterface {
             StringBuilder print = new StringBuilder("[");
             for (int i = top; i <=end; i++)
             {
-            	print.append(arrayQueue[i].toString());
+            	print.append(arrayQueue.toString());
                 if (i < end) {
                 	print.append(", ");
                 }

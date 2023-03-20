@@ -14,7 +14,7 @@ public class BadRobot {
 	private static final int espacioLibre=0;
 	private static final int lugarVisitado=2;
 	
-	private QueueArray[][] mapa;
+	private QueueArray[] mapa;
 	private QueueArray[] inicio;
 	private QueueArray[] fin;
 	/*

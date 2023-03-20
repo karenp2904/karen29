@@ -19,9 +19,9 @@ public class RestaYModulo {
 		Scanner sc= new Scanner(System.in);
 
 		System.out.println("Opciones disponibles" +
-				"1. Resta" +
-				"2. Modulo" +
-				"Ingrese su opcion: ");
+				"\n1. Resta" +
+				"\n2. Modulo" +
+				"\nIngrese su opcion: ");
 		opcion= sc.nextInt();
 
 		switch (opcion){
@@ -63,18 +63,18 @@ public class RestaYModulo {
 	}
 	public static LinkedList restarElementos(LinkedList listaARestar){
 
-        String[] valoresSeparados = new String[0];
+        String[] valoresSeparados = new String[listaARestar.size()];
             for (int i = 0; i <listaARestar.size() ; i++) {
-                 valoresSeparados[i]= listaARestar.pop().toString();
+				Object temp=listaARestar.popHead();
+                 valoresSeparados[i]= String.valueOf(temp);
             }
 
             LinkedList listaValores = new LinkedList();
 
             // Convertimos el array de valores a una lista enlazada...
-            for (String valor : valoresSeparados) {
-                int valorEntero = Integer.parseInt(valor);
-                listaValores.add(valorEntero);
-            }
+			for (int i = 0; i <valoresSeparados.length ; i++) {
+				listaValores.add(valoresSeparados[i]);
+			}
 
             // Restamos los valores de la lista enlazada...
             LinkedListNode actual = listaValores.head;
@@ -93,9 +93,11 @@ public class RestaYModulo {
 
 
 	
-	public static QueueArray[] obtenerModulo(LinkedList lista1, LinkedList lista2) {
+	public static QueueArray obtenerModulo(LinkedList lista1, LinkedList lista2) {
 
-		QueueArray[] resultados= new QueueArray[lista1.size()+ lista2.size()];//tamaño extensoooo
+		QueueArray resultados= new QueueArray(lista1.size()+ lista2.size());
+
+		//tamaño extensoooo
 		//Aqui se itera en la primera lista y un contador ira aumentando
 		Iterator iterator1 = lista1.iterator();
 		LinkedListNode nodo1 = (LinkedListNode) iterator1.next();
@@ -115,14 +117,14 @@ public class RestaYModulo {
 		}
 
 		//se trabajaran con arrays de colas- se convierte la lista en un array
-		QueueArray arrayLista1[] = new QueueArray[lista1.size()];
+		QueueArray arrayLista1 = new QueueArray(lista1.size());
 		for (int i = 0; i <lista1.size() ; i++) {
-			arrayLista1[i].insert(lista1.popHead());
+			arrayLista1.insert(lista1.popHead());
 		}
 		//se trabajaran con arrays de colas- se convierte la lista en un array
-		QueueArray arrayLista2[] = new QueueArray[lista2.size()];
+		QueueArray arrayLista2 = new QueueArray(lista2.size());
 		for (int i = 0; i <lista2.size() ; i++) {
-			arrayLista2[i].insert(lista2.popHead());
+			arrayLista2.insert(lista2.popHead());
 		}
 		LinkedListNode temporal;
 		if (tamañoLista1 > tamañoLista2) {// si la lista 1 es mayor a la lista 2 entonces la lista dos divirá a la lista
@@ -137,24 +139,24 @@ public class RestaYModulo {
 
 	}
 	//probar
-	public static QueueArray[] dividirListas(QueueArray[] dividendArray, QueueArray[] divisorArray) {
+	public static QueueArray dividirListas(QueueArray dividendArray, QueueArray divisorArray) {
 
 
 		// Verificar si el divisor es cero
-		if (isZero(divisorArray)) {
+		if (divisorEsCero(divisorArray)) {
 			throw new ArithmeticException("División por cero no permitida");
 		}
 
 		// Inicializar el cociente y el residuo
-		QueueArray[] cociente = new QueueArray[dividendArray.length];
-		QueueArray[] residuo = dividendArray;
+		QueueArray cociente = new QueueArray(dividendArray.size());
+		QueueArray residuo = dividendArray;
 
 		// Realizar la división
-		for (int i = 0; i < cociente.length; i++) {
-			int divisorDigito = (int) divisorArray[0].extract();
-			int dividendDigito = (int) residuo[i].extract();
-			cociente[i].insert(dividendDigito / divisorDigito);
-			residuo[i].insert(dividendDigito%divisorDigito);
+		for (int i = 0; i < cociente.size(); i++) {
+			int divisorDigito = (int) divisorArray.extract();
+			int dividendDigito = (int) residuo.extract();
+			cociente.insert(dividendDigito / divisorDigito);
+			residuo.insert(dividendDigito%divisorDigito);
 			/*
 			if (i < cociente.length - 1) {
 				residuo[i+1].insert(residuo[i + 1] + (residuo[i].extract() * 10));
@@ -167,25 +169,9 @@ public class RestaYModulo {
 
 	}
 
-	public static int[] convertStringToArray(String number) {
-		int[] array = new int[number.length()];
-		for (int i = 0; i < number.length(); i++) {
-			array[i] = Character.getNumericValue(number.charAt(i));
-		}
-		return array;
-	}
-
-	public static String convertArrayToString(int[] array) {
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < array.length; i++) {
-			builder.append(array[i]);
-		}
-		return builder.toString();
-	}
-
-	public static boolean isZero(QueueArray[] array) {
-		for (int i = 0; i < array.length; i++) {
-			if (array[i].extract()!= "0") {
+	public static boolean divisorEsCero(QueueArray array) {
+		for (int i = 0; i < array.size(); i++) {
+			if (array.extract()!= "0") {
 				return false;
 			}
 		}
